@@ -25,8 +25,9 @@
 3. create an index pattern `logstash-*` in [Kibana dashboard](http://localhost:5601/app/kibana)
 
 ### Troubleshooting
-1. After restart Spring Boot App container's time is incorrect
-   * did not occur again
+1. Docker time out of sync with OSX host after system sleep
+   * [Time drift in Moby VM and containers caused by system sleep](https://github.com/docker/for-mac/issues/17)
+   * [Docker time outof sync with osx host](https://github.com/docker/for-mac/issues/1260)
 
 ## References
 These were very helpful resources when building this small exapmle:
