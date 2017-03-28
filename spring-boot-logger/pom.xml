@@ -38,19 +38,10 @@
 			<version>${lombok.version}</version>
 		</dependency>
 
-		<!-- Logging with ELK -->
 		<dependency>
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
-			<version>4.6</version>
-			<!-- Exclude older version of logback-core for conflicting with newer in spring-boot,
-            see https://github.com/logstash/logstash-logback-encoder/issues/153 -->
-			<exclusions>
-				<exclusion>
-					<artifactId>logback-core</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-			</exclusions>
+			<version>4.9</version>
 		</dependency>
 
 		<dependency>
