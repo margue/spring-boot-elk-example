@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.2.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>de.holisticon.mgu</groupId>
+  <artifactId>spring-boot-elk-example</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>elk</module>
+    <module>spring-boot-logger</module>
+  </modules>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <!-- for camunda -->
+    <version.java>${java.version}</version.java>
+
+    <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
+    <spring-cloud.version>Brixton.SR7</spring-cloud.version>
+
+    <camunda.version>7.5.0</camunda.version>
+    <camunda-springboot.version>1.3.0</camunda-springboot.version>
+    <camunda-reactor.version>1.2</camunda-reactor.version>
+
+    <lombok.version>1.16.10</lombok.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-sleuth</artifactId>
+        <version>1.1.3.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <profiles>
+    <profile>
+      <id>dockerBuild</id>
+
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+      <properties>
+        <docker.image.prefix>spring-boot-elk-example</docker.image.prefix>
+        <docker.plugin.version>0.4.10</docker.plugin.version>
+      </properties>
+
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.spotify</groupId>
+              <artifactId>docker-maven-plugin</artifactId>
+              <version>${docker.plugin.version}</version>
+              <executions>
+                <execution>
+                  <phase>install</phase>
+                  <goals>
+                    <goal>build</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                <noCache>true</noCache>
+                <resources>
+                  <resource>
+                    <targetPath>/</targetPath>
+                    <directory>${project.build.directory}</directory>
+                    <include>${project.build.finalName}.jar</include>
+                  </resource>
+                </resources>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

@@ -1,0 +1,13 @@
+version: '2'
+services:
+  elk:
+    image: spring-boot-elk-example/elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      # Ports unused for access from the host so far
+      #- "5044:5044"
+      #- "4560:4560"
+
+  spring-boot-logger:
+    image: spring-boot-elk-example/spring-boot-logger
