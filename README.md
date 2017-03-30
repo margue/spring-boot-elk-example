@@ -22,7 +22,7 @@
 ## How to run it?
 1. build the docker images by executing `mvn clean install`
 2. startup Docker containers by executing `docker-compose up`
-3. create an index pattern `logstash-*` in [Kibana dashboard](http://localhost:5601/app/kibana)
+3. create an index pattern, f.e. `logstash-*`, in [Kibana dashboard](http://localhost:5601/app/kibana)
 
 ### Troubleshooting
 1. Docker time out of sync with OSX host after system sleep
